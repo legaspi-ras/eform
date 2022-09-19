@@ -1,0 +1,128 @@
+﻿Imports System.Net
+Imports MySql.Data.MySqlClient
+
+Public Class AdminDashboard
+    Inherits System.Web.UI.Page
+    Dim connection As MySqlConnection
+    Dim command As MySqlCommand
+    Public Sub ConnectionString()
+        connection = New MySqlConnection
+        connection.ConnectionString = ("server='localhost'; port='3306'; username='root'; password='powerhouse'; database='eforms'")
+    End Sub
+    Private Sub Searchfile()
+        Dim query As String
+
+        Me.ConnectionString()
+        query = ("SELECT formDepartment, formControlnum, formTitle, formRevisionnum FROM tblforms")
+        command = New MySqlCommand(query, connection)
+        connection.Open()
+
+        Dim reader As MySqlDataReader
+        reader = command.ExecuteReader()
+        reader.Read()
+
+        If reader.HasRows Then
+            reader.Close()
+            connection.Close()
+            Using sda As New MySqlDataAdapter(command)
+                Dim dt As New DataTable()
+                sda.Fill(dt)
+                datatablesSimple.DataSource = dt
+                datatablesSimple.DataBind()
+
+                datatablesSimple.UseAccessibleHeader = True
+                datatablesSimple.HeaderRow.TableSection = TableRowSection.TableHeader
+            End Using
+        Else
+            'can insert messagebox for empty
+        End If
+
+        reader.Close()
+        connection.Close()
+    End Sub
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Not Me.IsPostBack Then
+            Me.Searchfile()
+        End If
+    End Sub
+    Protected Sub lnkView_Click(sender As Object, e As EventArgs)
+
+        Dim formctrlnum As String = CType(sender, LinkButton).CommandArgument
+        Dim filename As String
+
+        Me.ConnectionString()
+
+        Dim query As String
+        query = ("SELECT * FROM tblforms where formControlnum = '" & formctrlnum & "'")
+        command = New MySqlCommand(query, connection)
+
+        Dim reader As MySqlDataReader
+        connection.Open()
+        reader = command.ExecuteReader()
+        reader.Read()
+
+        filename = reader(5)
+
+
+        Dim path As String = "\\192.168.1.26\Forms\Template\" + filename
+        Dim client As New WebClient()
+        Dim buffer As [Byte]() = client.DownloadData(path)
+
+        If buffer IsNot Nothing Then
+            Response.ContentType = "application/pdf"
+            Response.AddHeader("content-length", buffer.Length.ToString())
+            Response.BinaryWrite(buffer)
+            Response.End()
+
+        End If
+
+        reader.Close()
+        connection.Close()
+
+    End Sub
+    Protected Sub lnkDownload_Click(sender As Object, e As EventArgs)
+
+        Dim formctrlnum As String = CType(sender, LinkButton).CommandArgument
+        Dim filename As String
+
+        Me.ConnectionString()
+
+        Dim query As String
+        query = ("SELECT * FROM tblforms where formControlnum = '" & formctrlnum & "'")
+        command = New MySqlCommand(query, connection)
+
+        Dim reader As MySqlDataReader
+        connection.Open()
+        reader = command.ExecuteReader()
+        reader.Read()
+
+        If reader.HasRows Then
+            filename = reader(5)
+            Dim path As String = "\\192.168.1.26\Forms\Template\" + filename
+            Dim client As New WebClient()
+            Dim buffer As [Byte]() = client.DownloadData(path)
+
+            ContentType = "application/pdf"
+            Response.Clear()
+            Response.Buffer = True
+            Response.Charset = ""
+            Response.Cache.SetCacheability(HttpCacheability.NoCache)
+            Response.ClearContent()
+            Response.ClearHeaders()
+            Response.ContentType = ContentType
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename)
+            Response.TransmitFile("\\192.168.1.26\Forms\Template\" + filename)
+            Response.BinaryWrite(buffer)
+            Response.Flush()
+            Response.Close()
+            Response.End()
+            connection.Close()
+        Else
+            'can insert messagebox for empty
+        End If
+
+        reader.Close()
+        connection.Close()
+
+    End Sub
+End Class
