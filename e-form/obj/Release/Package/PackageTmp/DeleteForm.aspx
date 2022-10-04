@@ -136,7 +136,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Update selected form template
+                                Delete selected form template
                             </div>
                             <div class="card-body">
                          <asp:Label ID="lblsuccess" runat="server" style="color:green" class="bi bi-check-circle-fill" Text=" Delete Successful." Visible="false"></asp:Label>

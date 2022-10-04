@@ -9,7 +9,7 @@ Public Class AddNewForm
     End Sub
     Public Sub ConnectionString()
         connection = New MySqlConnection
-        connection.ConnectionString = ("server='localhost'; port='3306'; username='root'; password='powerhouse'; database='eforms'")
+        connection.ConnectionString = ("server='127.0.0.1'; port='3306'; username='root'; password='POWERHOUSE'; database='eforms'")
     End Sub
     Protected Sub btnUpload_Click(sender As Object, e As EventArgs) Handles btnUpload.Click
 
@@ -26,6 +26,7 @@ Public Class AddNewForm
         contentType = FileUpload1.PostedFile.ContentType
         directory = "\\192.168.1.26\Forms\Template\" + filename
 
+        ' mag lagay dito ng select / query check yung form ctrl no ay existing na sa database hold ng variable kung meron
         If FileUpload1.HasFile Then
 
             If contentType = "application/pdf" Then
@@ -58,7 +59,9 @@ Public Class AddNewForm
                     reader.Close()
                     connection.Close()
 
+                    lblAlert1.Visible = False
                     lblsuccess.Visible = True
+                    lblsuccess.Text = " Update Successful." + " | " + formctrlnum + " | " + frmtitle + " "
                     'MsgBox(filename + " succesfully uploaded from the system.")
                     ' Response.Write("<script language=javascript>alert('Upload successful.');</script>")
                     ' Response.Redirect(Request.Url.AbsoluteUri)

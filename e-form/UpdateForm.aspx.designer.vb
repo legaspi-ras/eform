@@ -140,6 +140,24 @@ Partial Public Class UpdateForm
     Protected WithEvents FileUpload1 As Global.System.Web.UI.WebControls.FileUpload
 
     '''<summary>
+    '''lblFormid control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblFormid As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblFilename control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblFilename As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''btnUpload control.
     '''</summary>
     '''<remarks>

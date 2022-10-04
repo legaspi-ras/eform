@@ -1162,6 +1162,24 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:e_form.UpdateForm._lblFormid">
+<summary>
+lblFormid control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:e_form.UpdateForm._lblFilename">
+<summary>
+lblFilename control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:e_form.UpdateForm._btnUpload">
 <summary>
 btnUpload control.

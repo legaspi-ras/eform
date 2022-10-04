@@ -112,7 +112,7 @@
     <Content Include="RevisedFormClient.aspx" />
     <Content Include="SubmitForm.aspx" />
     <Content Include="css\styles.css" />
-    <Content Include="Index.aspx" />
+    <Content Include="default.aspx" />
     <Content Include="js\datatables-simple-demo.js" />
     <Content Include="js\scripts.js" />
     <Content Include="UpdateFilledForm.aspx" />
@@ -198,11 +198,11 @@
       <DependentUpon>SubmitForm.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Index.aspx.designer.vb">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="default.aspx.designer.vb">
+      <DependentUpon>default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Index.aspx.vb">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="default.aspx.vb">
+      <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />

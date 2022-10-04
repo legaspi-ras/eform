@@ -6,7 +6,7 @@ Public Class Login
     Dim command As MySqlCommand
     Public Sub ConnectionString()
         connection = New MySqlConnection
-        connection.ConnectionString = ("server='localhost'; port='3306'; username='root'; password='powerhouse'; database='eforms'")
+        connection.ConnectionString = ("server='127.0.0.1'; port='3306'; username='root'; password='POWERHOUSE'; database='eforms'")
     End Sub
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -23,7 +23,7 @@ Public Class Login
         username = inputUsername.Value
         password = inputPassword.Value
 
-        query = ("SELECT * FROM tbluser_account WHERE acc_username = '" & username & "' AND acc_password = '" & password & "'")
+        query = ("SELECT * FROM tbluser_account WHERE BINARY acc_username = '" & username & "' AND BINARY acc_password = '" & password & "'")
 
         command = New MySqlCommand(query, connection)
         connection.Open()

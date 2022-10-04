@@ -127,6 +127,7 @@
                 <td style="height: 8px; width: 422px;">
                      <asp:DropDownList ID="ddlDepartment" runat="server" class="form-select" DataTextField="DEPARTMENT" DataValueField="DEPARTMENT" ToolTip="Please select depeartment" Width="460px">
                          <asp:ListItem>MIS</asp:ListItem>
+                         <asp:ListItem>Admin</asp:ListItem>
                          <asp:ListItem Value="Security">Security</asp:ListItem>
                          <asp:ListItem>Purchasing</asp:ListItem>
                          <asp:ListItem>Production</asp:ListItem>
@@ -177,7 +178,7 @@
                     <asp:Label ID="Label5" runat="server" Text="Select file for upload : "></asp:Label>
                 </td>
                 <td style="height: 54px; width: 422px;">
-                    <asp:FileUpload ID="FileUpload1" class="form-control" runat="server" Width="460px" ToolTip="Please select PDF files only." required ="True" /> <%--AllowMultiple="true" selecting multiple files--%>
+                    <asp:FileUpload ID="FileUpload1" class="form-control" runat="server" Width="460px" ToolTip="Please select PDF files only." accept="application/pdf" required ="True" /> <%--AllowMultiple="true" selecting multiple files--%>
                 </td>
             </tr>
 

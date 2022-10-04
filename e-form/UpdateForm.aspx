@@ -51,7 +51,7 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-book"></i></div>
                                 List of e-Forms
                             </a>
-<%--                            <a class="nav-link" href="RevisedForm.aspx">
+                            <%--                            <a class="nav-link" href="RevisedForm.aspx">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-book"></i></div>
                                 List of Revised Forms
                             </a>--%>
@@ -68,7 +68,7 @@
                                   <a class="nav-link bi bi-file-earmark-x" href="DeleteForm.aspx"> Delete</a>
                                 </nav>
                             </div>
-<%--                            <div class="sb-sidenav-menu-heading">Approved Forms</div>
+                            <%--                            <div class="sb-sidenav-menu-heading">Approved Forms</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-wrench"></i></div>
                                 Services
@@ -152,6 +152,7 @@
                 <td style=" padding:8px">
                      <asp:DropDownList ID="ddlDepartment" runat="server" class="form-select" DataTextField="DEPARTMENT" DataValueField="DEPARTMENT" ToolTip="Please select depeartment" Enabled="False">
                          <asp:ListItem>MIS</asp:ListItem>
+                         <asp:ListItem>Admin</asp:ListItem>
                          <asp:ListItem Value="Security">Security</asp:ListItem>
                          <asp:ListItem>Purchasing</asp:ListItem>
                          <asp:ListItem>Production</asp:ListItem>
@@ -202,16 +203,23 @@
                     <asp:Label ID="Label5" runat="server" Text="Select file for upload : "></asp:Label>
                 </td>
                 <td style=" padding:8px">
-                    <asp:FileUpload ID="FileUpload1" class="form-control" runat="server" ToolTip="Please select PDF files only." Enabled="False" /> <%--AllowMultiple="true" selecting multiple files--%>
+                    <asp:FileUpload ID="FileUpload1" class="form-control" runat="server" ToolTip="Please select PDF files only." accept="application/pdf" Enabled="False" /> <%--                                             <asp:TemplateField>
+                                                 <ItemTemplate>
+                                                     <asp:LinkButton ID="lnkView" CommandName="Select" OnClientClick="SetTargetNew();" Text = "View" runat="server" CommandArgument = '<%# Eval("formControlnum") %>' OnClick="lnkView_Click">View</asp:LinkButton>
+                                                 </ItemTemplate>
+                                             </asp:TemplateField>--%>
                 </td>
             </tr>
 
             <tr>
                  <td>
 
+                     <asp:Label ID="lblFormid" runat="server" Text="Label" Visible="False"></asp:Label>
+                     <asp:Label ID="lblFilename" runat="server" Text="Label" Visible="False"></asp:Label>
+
                  </td>
                 <td style=" padding:8px; text-align: left;">
-                     <asp:Button ID="btnUpload" class="btn btn-success" runat="server" Text="Upload" Enabled="False" />
+                     <asp:Button ID="btnUpload" class="btn btn-success" runat="server" Text="Update" Enabled="False" />
                 </td>
             </tr>
 

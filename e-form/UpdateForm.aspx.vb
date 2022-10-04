@@ -8,7 +8,7 @@ Public Class UpdateForm
     Dim command As MySqlCommand
     Public Sub ConnectionString()
         connection = New MySqlConnection
-        connection.ConnectionString = ("server='localhost'; port='3306'; username='root'; password='powerhouse'; database='eforms'")
+        connection.ConnectionString = ("server='127.0.0.1'; port='3306'; username='root'; password='POWERHOUSE'; database='eforms'")
     End Sub
     Private Sub DisplayFiles()
         Dim query As String
@@ -108,10 +108,12 @@ Public Class UpdateForm
 
         If reader.HasRows Then
 
+            lblFormid.Text = reader(0)
             ddlDepartment.SelectedValue = reader(1)
             txtFormctrlnum.Text = reader(2)
             txtFormtitle.Text = reader(3)
             txtRevnum.Text = reader(4)
+            lblFilename.Text = reader(5)
 
             reader.Close()
             connection.Close()
@@ -133,7 +135,7 @@ Public Class UpdateForm
         Dim directory As String
         Dim contentType As String
         contentType = FileUpload1.PostedFile.ContentType
-        directory = Server.MapPath("\\192.168.1.26\Forms\Template" + filename)
+        directory = "\\192.168.1.26\Forms\Template\" + filename
 
         If FileUpload1.HasFile Then
 
@@ -147,18 +149,19 @@ Public Class UpdateForm
                     Dim formctrlnum As String
                     Dim frmtitle As String
                     Dim revnum As String
-
+                    Dim formid As String
 
                     deptarea = ddlDepartment.SelectedItem.Text
                     formctrlnum = txtFormctrlnum.Text
                     frmtitle = txtFormtitle.Text
                     revnum = txtRevnum.Text
+                    formid = lblFormid.Text
 
                     Dim query As String
 
                     Me.ConnectionString()
 
-                    query = ("UPDATE tblforms SET formDepartment = '" & deptarea & "', formControlnum = '" & formctrlnum & "', formTitle = '" & frmtitle & "', formRevisionnum = '" & revnum & "', formFilename = '" & filename & "'  WHERE  formControlNum = '" & formctrlnum & "'")
+                    query = ("UPDATE tblforms SET formDepartment = '" & deptarea & "', formControlnum = '" & formctrlnum & "', formTitle = '" & frmtitle & "', formRevisionnum = '" & revnum & "', formFilename = '" & filename & "'  WHERE  id = '" & formid & "'")
                     command = New MySqlCommand(query, connection)
 
                     Dim reader As MySqlDataReader
@@ -166,16 +169,55 @@ Public Class UpdateForm
                     reader = command.ExecuteReader()
                     reader.Read()
 
-                    FileUpload1.SaveAs("\\192.168.1.26\Forms\Template" + filename)
+                    FileUpload1.SaveAs("\\192.168.1.26\Forms\Template\" + filename)
 
                     reader.Close()
                     connection.Close()
 
+                    Me.DisplayFiles()
                     ' MsgBox("File succesfully updated from the system.")
                     lblsuccess.Visible = True
+                    lblsuccess.Text = " Upload Successful." + " | " + formctrlnum + " | " + frmtitle + " "
                 Else
+                    ' mag update ng file tapos iba ang file name pero same form control number
+                    directory = "\\192.168.1.26\Forms\Template\" + lblFilename.Text
 
-                    ' MsgBox("Please select a PDF file for upload! ")
+                    File.Delete(directory)
+
+                    Dim deptarea As String
+                    Dim formctrlnum As String
+                    Dim frmtitle As String
+                    Dim revnum As String
+                    Dim formid As String
+
+                    deptarea = ddlDepartment.SelectedItem.Text
+                    formctrlnum = txtFormctrlnum.Text
+                    frmtitle = txtFormtitle.Text
+                    revnum = txtRevnum.Text
+                    formid = lblFormid.Text
+
+                    Dim query As String
+
+                    Me.ConnectionString()
+
+                    query = ("UPDATE tblforms SET formDepartment = '" & deptarea & "', formControlnum = '" & formctrlnum & "', formTitle = '" & frmtitle & "', formRevisionnum = '" & revnum & "', formFilename = '" & filename & "'  WHERE  id = '" & formid & "'")
+                    command = New MySqlCommand(query, connection)
+
+                    Dim reader As MySqlDataReader
+                    connection.Open()
+                    reader = command.ExecuteReader()
+                    reader.Read()
+
+                    FileUpload1.SaveAs("\\192.168.1.26\Forms\Template\" + filename)
+
+                    reader.Close()
+                    connection.Close()
+
+                    Me.DisplayFiles()
+                    ' MsgBox("File succesfully updated from the system.")
+                    lblsuccess.Visible = True
+                    lblsuccess.Text = " Upload Successful." + " | " + formctrlnum + " | " + frmtitle + " "
+
 
                 End If
 
@@ -190,8 +232,9 @@ Public Class UpdateForm
             Dim formctrlnum As String
             Dim frmtitle As String
             Dim revnum As String
+            Dim formid As String
 
-
+            formid = lblFormid.Text
             deptarea = ddlDepartment.SelectedItem.Text
             formctrlnum = txtFormctrlnum.Text
             frmtitle = txtFormtitle.Text
@@ -201,7 +244,7 @@ Public Class UpdateForm
 
             Me.ConnectionString()
 
-            query = ("UPDATE tblforms SET formDepartment = '" & deptarea & "', formControlnum = '" & formctrlnum & "', formTitle = '" & frmtitle & "', formRevisionnum = '" & revnum & "' WHERE  formControlNum = '" & formctrlnum & "'")
+            query = ("UPDATE tblforms SET formDepartment = '" & deptarea & "', formControlnum = '" & formctrlnum & "', formTitle = '" & frmtitle & "', formRevisionnum = '" & revnum & "' WHERE  id = '" & formid & "'")
             command = New MySqlCommand(query, connection)
 
             Dim reader As MySqlDataReader
@@ -212,8 +255,11 @@ Public Class UpdateForm
             reader.Close()
             connection.Close()
 
+            Me.DisplayFiles()
+
             ' MsgBox("File succesfully updated from the system.")
             lblsuccess.Visible = True
+            lblsuccess.Text = " Update Successful." + " | " + formctrlnum + " | " + frmtitle + " "
         End If
 
 

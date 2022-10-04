@@ -7,7 +7,7 @@ Public Class DeleteForm
     Dim command As MySqlCommand
     Public Sub ConnectionString()
         connection = New MySqlConnection
-        connection.ConnectionString = ("server='localhost'; port='3306'; username='root'; password='powerhouse'; database='eforms'")
+        connection.ConnectionString = ("server='127.0.0.1'; port='3306'; username='root'; password='POWERHOUSE'; database='eforms'")
     End Sub
     Private Sub DisplayFiles()
         Dim query As String
